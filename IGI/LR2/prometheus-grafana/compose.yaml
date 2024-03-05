@@ -1,0 +1,39 @@
+services:
+  prometheus:
+    image: lliymuk/igi-lr2:my-prom
+    container_name: prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    ports:
+      - 9090:9090
+    restart: unless-stopped
+    volumes:
+      - ./prometheus:/etc/prometheus
+      - prom_data:/prometheus
+    networks:
+      my-bridge:
+        aliases: 
+         - prometheus-host
+  grafana:
+    image: lliymuk/igi-lr2:my-grafana
+    container_name: grafana
+    ports:
+      - 3000:3000
+    restart: unless-stopped
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=grafana
+    volumes:
+      - ./grafana:/etc/grafana/provisioning/datasources
+    networks:
+      my-bridge:
+        aliases: 
+         - grafana-host
+  
+volumes:
+  prom_data:
+
+networks:
+  my-bridge:
+    name: uninon-bridge
+    external: true
