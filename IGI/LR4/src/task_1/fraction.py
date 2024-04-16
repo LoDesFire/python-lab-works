@@ -18,10 +18,26 @@ class Fraction:
         return self.__str__().__hash__()
 
 
+# noinspection PyPropertyDefinition
 class FracCollection:
     """Wrapper for Fractions dictionary"""
+
     def __init__(self, dictionary: Dict[str, Fraction]):
         self.__dictionary = dictionary
+        self.__serializer = None
+
+    @property
+    def serializer(self):
+        return self.__serializer
+
+    def save(self):
+        if self.__serializer is None:
+            return
+        self.__serializer.save(self)
+
+    @staticmethod
+    def obtain(serializer):
+        return serializer.obtain()
 
     def __getitem__(self, item):
         return self.__dictionary[item]
@@ -65,3 +81,7 @@ class FracCollection:
             csv_list.append({"key": k, "numerator": v.numerator, "denominator": v.denominator})
 
         return csv_list
+
+    @serializer.setter
+    def serializer(self, value):
+        self.__serializer = value

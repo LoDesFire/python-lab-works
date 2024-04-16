@@ -20,9 +20,15 @@ def task_1():
     pickleSerializer = PickleSerializer("src/task_1/data/binary.bin")
     csvSerializer = CSVSerializer("src/task_1/data/data.csv")
 
-    pickleSerializer.save(FracCollection(numbers))
-    csvSerializer.save(pickleSerializer.obtain())
-    fractions = csvSerializer.obtain()
+    col1 = FracCollection(numbers)
+    col1.serializer = pickleSerializer
+    col1.save()
+
+    col1_des: FracCollection = FracCollection.obtain(pickleSerializer)
+    col1_des.serializer = csvSerializer
+    col1_des.save()
+
+    fractions = FracCollection.obtain(csvSerializer)
 
     frac = Report.input_frac()
 
