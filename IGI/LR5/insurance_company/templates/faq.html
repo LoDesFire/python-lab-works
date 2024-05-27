@@ -1,0 +1,40 @@
+<style>
+    .faq-item {
+        background: #fff;
+        margin-bottom: 20px;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+    }
+
+    .faq-question {
+        font-size: 1.2em;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .faq-answer {
+        margin-bottom: 10px;
+        line-height: 1.6;
+    }
+
+    .faq-time {
+        font-size: 0.9em;
+        color: #888;
+    }
+</style>
+{% extends "base.html" %}
+
+{% block title %}
+    Ответы и вопросы
+{% endblock %}
+
+{% block content %}
+    {% for faq in faqs %}
+        <div class="faq-item">
+            <div class="faq-question">{{ faq.question }}</div>
+            <div class="faq-answer">{{ faq.answer }}</div>
+            <div class="faq-time">Создан: {{ faq.datetime }}</div>
+        </div>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,38 @@
+<style>
+    .card {
+        background: #fff;
+        padding: 20px;
+        margin: 20px 0;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+
+        h2 {
+            margin-top: 0;
+        }
+
+        p {
+            line-height: 1.6;
+        }
+    }
+    img {
+        width: 95%;
+    }
+</style>
+{% extends "base.html" %}
+{% block title %}
+    Статистика
+{% endblock %}
+
+{% block content %}
+    <div class="card">
+        <h1>Статистика по договорам</h1>
+        <p>Сумма взносов: {{ total_sum|floatformat:2 }}</p>
+        <p>Мода: {{ mode_value|floatformat:2 }}</p>
+        <p>Средняя величина: {{ mean_value|floatformat:2 }}</p>
+        <p>Медиана: {{ median_value|floatformat:2 }}</p>
+
+        <h1>Статистика по отзывам</h1>
+        <img src="data:image/png;base64,{{ image_base64 }}" alt="">
+
+    </div>
+{% endblock %}

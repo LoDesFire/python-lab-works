@@ -1,0 +1,36 @@
+<style>
+    .card {
+        background: #fff;
+        padding: 20px;
+        margin: 20px 0;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+
+        h2 {
+            margin-top: 0;
+        }
+
+        p {
+            line-height: 1.6;
+        }
+    }
+</style>
+{% extends "base.html" %}
+{% block title %}
+    Агенты
+{% endblock %}
+
+{% block content %}
+    <form method="get">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Применить</button>
+    </form>
+    {% for b in agents %}
+    <div class="card">
+        <p>Агент: {{ b.employee.full_name }}</p>
+        <p>Филиал: {{ b.branch }}</p>
+        <p>Номер телефона: {{ b.employee.phone_number }}</p>
+    </div>
+    {%  endfor %}
+{% endblock %}

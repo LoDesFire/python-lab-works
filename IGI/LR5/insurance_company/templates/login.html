@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="auth-container">
+        <h2>Авторизация</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Войти</button>
+        </form>
+        <p>Еще не зарегистрированы? <a href="{% url 'register' %}">Зарегистрироваться</a></p>
+        <h3>Cat Fact ^_^</h3>
+        <p>{{ fact.fact }}</p>
+    </div>
+{% endblock content %}

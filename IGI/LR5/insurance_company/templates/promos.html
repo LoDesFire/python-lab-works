@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Промокоды</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Код</th>
+                <th>Скидка</th>
+                <th>Начинает</th>
+                <th>Истекает</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for promocode in active_promo %}
+            <tr>
+                <td>{{ promocode.code }}</td>
+                <td>{{ promocode.discount }}%</td>
+                <td>{{ promocode.from_date }}</td>
+                <td>{{ promocode.to_date }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h1>Архив промокодов</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Код</th>
+                <th>Скидка</th>
+                <th>Начинает</th>
+                <th>Истекает</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for promocode in archive_promo %}
+            <tr>
+                <td>{{ promocode.code }}</td>
+                <td>{{ promocode.discount }}%</td>
+                <td>{{ promocode.from_date }}</td>
+                <td>{{ promocode.to_date }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

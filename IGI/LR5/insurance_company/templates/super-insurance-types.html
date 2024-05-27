@@ -1,0 +1,30 @@
+<style>
+    .card {
+        background: #fff;
+        padding: 20px;
+        margin: 20px 0;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+
+        h2 {
+            margin-top: 0;
+        }
+
+        p {
+            line-height: 1.6;
+        }
+    }
+</style>
+{% extends "base.html" %}
+{% block title %}
+    Типы страхования
+{% endblock %}
+
+{% block content %}
+    {% for b in insurance_types %}
+    <div class="card">
+        <p>Имя: {{ b.name }}</p>
+        <p>Тарифная ставка: {{ b.commission_rate }}</p>
+    </div>
+    {%  endfor %}
+{% endblock %}

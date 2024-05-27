@@ -1,0 +1,54 @@
+<style>
+    .article-card {
+        background: #fff;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        box-sizing: border-box;
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        h2 {
+            margin-top: 0;
+            font-size: 1.5em;
+        }
+
+        p {
+            line-height: 1.6;
+        }
+
+        small {
+            color: #888;
+        }
+    }
+</style>
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    О нас
+{% endblock title %}
+{% block content %}
+    {% if about is not None %}
+        <div class="article-card">
+            <h2>{{ about.title }}</h2>
+            <img src="{{ about.image.url }}" alt="{{ about.title }}">
+            <p>{{ about.body }}</p>
+            <p>Контакты: {{ about.contacts }}</p>
+        </div>
+    {% endif %}
+    <h1>
+        Свежая новость
+    </h1>
+    {% if article is not None %}
+        <div class="article-card">
+            <h2>{{ article.title }}</h2>
+            <img src="{{ article.image.url }}" alt="{{ article.title }}">
+            <p>{{ article.short_description }}</p>
+            <p><small>Опубликовано: {{ article.created_at }}</small></p>
+        </div>
+    {% endif %}
+{% endblock %}

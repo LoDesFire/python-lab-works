@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="auth-container">
+        <h2>Регистрация</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            {{ client_form.as_p }}
+            <button type="submit">Зарегистрироваться</button>
+        </form>
+        <p>Уже зарегистрированы? <a href="{% url 'login' %}">Войти</a></p>
+    </div>
+{% endblock content %}

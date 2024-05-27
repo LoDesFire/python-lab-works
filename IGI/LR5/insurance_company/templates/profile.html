@@ -1,0 +1,64 @@
+<style>
+    .card {
+        background: #fff;
+        padding: 20px;
+        margin: 20px 0;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+
+        h2 {
+            margin-top: 0;
+        }
+
+        p {
+            line-height: 1.6;
+        }
+    }
+</style>
+{% extends "base.html" %}
+{% block title %}
+    Профиль
+{% endblock title %}
+{% block content %}
+    <div class="card">
+        {% if client.middle_name is not None %}
+            <h2>{{ client.last_name }} {{ client.first_name }} {{ client.middle_name }}</h2>
+        {% else %}
+            <h2>{{ client.last_name }} {{ client.first_name }}</h2>
+        {% endif %}
+        <p><strong>Адрес:</strong> {{ client.address }}</p>
+        <p><strong>Номер телефона:</strong> {{ client.phone_number }}</p>
+        <p><strong>Электронная почта:</strong> {{ client.email }}</p>
+        <p><strong>Дата рождения:</strong> {{ client.birth|date:"d.m.Y" }}</p>
+    </div>
+    {% if not user.is_staff %}
+        <h1>
+            Текущие контракты
+        </h1>
+        {% for contract in contracts %}
+            <div class="card">
+                <p> {{ contract.contract }} </p>
+                <p><strong>Срок действия:</strong> {{ contract.start_date|date:"d.m.Y" }}
+                    - {{ contract.end_date|date:"d.m.Y" }}</p>
+                <p><strong>Сумма страхования:</strong> {{ contract.insurance_amount }}</p>
+                <p><strong>Тарифная ставка:</strong> {{ contract.contract.insurance_type.commission_rate }}</p>
+                <p><strong>Страховой агент:</strong> {{ contract.contract.agent }}</p>
+                {% if contract.discount is not None %}
+                    <p><strong>Скидка:</strong> {{ contract.discount }}%</p>
+                {% endif %}
+                <small style="color: #bbbbbb;">
+                    Адрес филиала: {{ contract.contract.agent.branch }}
+                </small>
+            </div>
+        {% endfor %}
+        <button onclick="document.location='{% url "new-contract" %}'">Составить контракт</button>
+    {% elif not user.is_superuser %}
+        <a href="{% url "agent-contracts" %}">Контракты</a>
+    {% else %}
+        <a href="{% url "filials-list" %}">Список филиалов</a>
+        <a href="{% url "contracts-list" %}">Список договоров</a>
+        <a href="{% url "agents-list" %}">Список агентов</a>
+        <a href="{% url "insurance-types" %}">Все виды страхования</a>
+        <a href="{% url "statistics" %}">Статистика</a>
+    {% endif %}
+{% endblock content %}

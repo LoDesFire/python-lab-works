@@ -1,0 +1,30 @@
+<style>
+    .card {
+        background: #fff;
+        padding: 20px;
+        margin: 20px 0;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+
+        h2 {
+            margin-top: 0;
+        }
+
+        p {
+            line-height: 1.6;
+        }
+    }
+</style>
+{% extends "base.html" %}
+{% block title %}
+    Филиалы
+{% endblock %}
+
+{% block content %}
+    {% for b in branches %}
+    <div class="card">
+        <p>Адрес: {{ b.address }}</p>
+        <p>Номер телефона: {{ b.phone_number }}</p>
+    </div>
+    {%  endfor %}
+{% endblock %}
